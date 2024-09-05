@@ -1,0 +1,6 @@
+---
+hdf5s_dir: /home/zhuyin/workspace/hdf5s/musdbhq/train
+root: /home/zhuyin/dataset
+subset: train
+sample_rate: 44100
+res_type: kaiser_fast

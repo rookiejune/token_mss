@@ -1,0 +1,29 @@
+---
+indexes_path: /home/zhuyin/workspace/indexes/musdbhq.pkl
+source_types:
+    vocals:
+        musdbhq:
+            hdf5s_dir: /home/zhuyin/workspace/hdf5s/musdbhq/train
+            key_in_hdf5: vocals
+            hop_samples: 44100
+            seg_samples: 131072 # 512 * 256
+    bass:
+        musdbhq:
+            hdf5s_dir: /home/zhuyin/workspace/hdf5s/musdbhq/train
+            key_in_hdf5: bass
+            hop_samples: 44100
+            seg_samples: 131072
+
+    drums:
+        musdbhq:
+            hdf5s_dir: /home/zhuyin/workspace/hdf5s/musdbhq/train
+            key_in_hdf5: drums
+            hop_samples: 44100
+            seg_samples: 131072
+
+    other:
+        musdbhq:
+            hdf5s_dir: /home/zhuyin/workspace/hdf5s/musdbhq/train
+            key_in_hdf5: other
+            hop_samples: 44100
+            seg_samples: 131072

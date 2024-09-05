@@ -1,0 +1,64 @@
+---
+common_kwargs:
+    workspace: /home/zhuyin/workspace/token_music_source_separation
+    name: default
+    comment:
+
+data_module:
+    type: MetaDataModule
+    sampler:
+        type: MetaSampler
+        kwargs:
+            indexes_path: /home/zhuyin/workspace/indexes/musdbhq.pkl
+            source_types:
+                - bass
+                - drums
+                - other
+                - vocals
+            batch_size: 24
+            step_per_epoch: 10000
+            segment_samples: 131072 # about 3 seconds for a 441 kHz audio
+            remixing_sources: False
+            mixaudio_dict:
+            random_seed: 1234
+    dataset:
+        type: MetaDataset
+        kwargs:
+            input_channels: 1
+            augmentations:
+    kwargs:
+        num_workers: 8
+        distributed: True #! Important!!!
+
+compression_model:
+    type: DAC
+    kwargs:
+
+transformer_model:
+    type: TokenFormer
+    kwargs:
+        num_quantizers: 9
+        num_embeddings: 1030
+        d_model: 256
+        nhead: 8
+        num_encoder_layers: 8
+        num_decoder_layers: 8
+
+pl_module:
+    kwargs:
+        source_map:
+            bass: 0
+            drums: 1
+            other: 2
+            vocals: 3
+        source_weight:
+            bass: 0.5
+            drums: 0.5
+            other: 1.
+            vocals: 0.75
+
+trainer:
+    kwargs:
+        max_epochs: 100
+        strategy: ddp_find_unused_parameters_true
+        use_distributed_sampler: False
